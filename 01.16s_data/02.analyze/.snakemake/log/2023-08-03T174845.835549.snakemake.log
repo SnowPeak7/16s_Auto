@@ -1,0 +1,91 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count
+-------------  -------
+all                  1
+fastp                4
+make_manifest        1
+total                6
+
+Select jobs to execute...
+
+[Thu Aug  3 17:48:46 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397339_1.fastq, 01.raw_fastq/SRR1397339_2.fastq
+    output: 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397339.json
+    jobid: 3
+    reason: Missing output files: 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397339_1.clean.fastq
+    wildcards: sample=SRR1397339
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 17:48:46 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397407_1.fastq, 01.raw_fastq/SRR1397407_2.fastq
+    output: 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397407.json
+    jobid: 4
+    reason: Missing output files: 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397407_2.clean.fastq
+    wildcards: sample=SRR1397407
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 17:48:46 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397196_1.fastq, 01.raw_fastq/SRR1397196_2.fastq
+    output: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397196.json
+    jobid: 1
+    reason: Missing output files: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397196.html
+    wildcards: sample=SRR1397196
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 17:48:46 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397265_1.fastq, 01.raw_fastq/SRR1397265_2.fastq
+    output: 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397265.json
+    jobid: 2
+    reason: Missing output files: 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397265.html
+    wildcards: sample=SRR1397265
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 17:48:47 2023]
+Finished job 1.
+1 of 6 steps (17%) done
+[Thu Aug  3 17:48:47 2023]
+Finished job 4.
+2 of 6 steps (33%) done
+[Thu Aug  3 17:48:47 2023]
+Finished job 2.
+3 of 6 steps (50%) done
+[Thu Aug  3 17:48:47 2023]
+Finished job 3.
+4 of 6 steps (67%) done
+Select jobs to execute...
+
+[Thu Aug  3 17:48:47 2023]
+rule make_manifest:
+    input: 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html
+    output: 02.clean_fastq/filelist.txt
+    jobid: 5
+    reason: Missing output files: 02.clean_fastq/filelist.txt; Input files updated by another job: 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 17:48:48 2023]
+Finished job 5.
+5 of 6 steps (83%) done
+Select jobs to execute...
+
+[Thu Aug  3 17:48:48 2023]
+localrule all:
+    input: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/filelist.txt
+    jobid: 0
+    reason: Input files updated by another job: 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/filelist.txt, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397265.html
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 17:48:48 2023]
+Finished job 0.
+6 of 6 steps (100%) done
+Complete log: .snakemake/log/2023-08-03T174845.835549.snakemake.log

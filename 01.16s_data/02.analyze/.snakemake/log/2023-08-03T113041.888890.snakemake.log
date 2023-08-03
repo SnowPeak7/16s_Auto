@@ -1,0 +1,77 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job      count
+-----  -------
+all          1
+fastp        4
+total        5
+
+Select jobs to execute...
+
+[Thu Aug  3 11:30:42 2023]
+rule fastp:
+    input: raw_fastq/SRR1397339_1.fastq, raw_fastq/SRR1397339_2.fastq
+    output: clean_fastq/SRR1397339_1.clean.fastq, clean_fastq/SRR1397339_2.clean.fastq, clean_fastq/SRR1397339.html
+    jobid: 3
+    reason: Missing output files: clean_fastq/SRR1397339_1.clean.fastq, clean_fastq/SRR1397339_2.clean.fastq
+    wildcards: sample=SRR1397339
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 11:30:42 2023]
+rule fastp:
+    input: raw_fastq/SRR1397196_1.fastq, raw_fastq/SRR1397196_2.fastq
+    output: clean_fastq/SRR1397196_1.clean.fastq, clean_fastq/SRR1397196_2.clean.fastq, clean_fastq/SRR1397196.html
+    jobid: 1
+    reason: Missing output files: clean_fastq/SRR1397196_1.clean.fastq, clean_fastq/SRR1397196_2.clean.fastq
+    wildcards: sample=SRR1397196
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 11:30:42 2023]
+rule fastp:
+    input: raw_fastq/SRR1397407_1.fastq, raw_fastq/SRR1397407_2.fastq
+    output: clean_fastq/SRR1397407_1.clean.fastq, clean_fastq/SRR1397407_2.clean.fastq, clean_fastq/SRR1397407.html
+    jobid: 4
+    reason: Missing output files: clean_fastq/SRR1397407_1.clean.fastq, clean_fastq/SRR1397407_2.clean.fastq
+    wildcards: sample=SRR1397407
+    resources: tmpdir=/tmp
+
+
+[Thu Aug  3 11:30:42 2023]
+rule fastp:
+    input: raw_fastq/SRR1397265_1.fastq, raw_fastq/SRR1397265_2.fastq
+    output: clean_fastq/SRR1397265_1.clean.fastq, clean_fastq/SRR1397265_2.clean.fastq, clean_fastq/SRR1397265.html
+    jobid: 2
+    reason: Missing output files: clean_fastq/SRR1397265_1.clean.fastq, clean_fastq/SRR1397265_2.clean.fastq
+    wildcards: sample=SRR1397265
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 11:30:43 2023]
+Finished job 1.
+1 of 5 steps (20%) done
+[Thu Aug  3 11:30:43 2023]
+Finished job 2.
+2 of 5 steps (40%) done
+[Thu Aug  3 11:30:43 2023]
+Finished job 4.
+3 of 5 steps (60%) done
+[Thu Aug  3 11:30:43 2023]
+Finished job 3.
+4 of 5 steps (80%) done
+Select jobs to execute...
+
+[Thu Aug  3 11:30:43 2023]
+localrule all:
+    input: clean_fastq/SRR1397196_1.clean.fastq, clean_fastq/SRR1397265_1.clean.fastq, clean_fastq/SRR1397339_1.clean.fastq, clean_fastq/SRR1397407_1.clean.fastq, clean_fastq/SRR1397196_2.clean.fastq, clean_fastq/SRR1397265_2.clean.fastq, clean_fastq/SRR1397339_2.clean.fastq, clean_fastq/SRR1397407_2.clean.fastq
+    jobid: 0
+    reason: Input files updated by another job: clean_fastq/SRR1397265_2.clean.fastq, clean_fastq/SRR1397339_2.clean.fastq, clean_fastq/SRR1397407_2.clean.fastq, clean_fastq/SRR1397407_1.clean.fastq, clean_fastq/SRR1397339_1.clean.fastq, clean_fastq/SRR1397265_1.clean.fastq, clean_fastq/SRR1397196_1.clean.fastq, clean_fastq/SRR1397196_2.clean.fastq
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 11:30:43 2023]
+Finished job 0.
+5 of 5 steps (100%) done
+Complete log: .snakemake/log/2023-08-03T113041.888890.snakemake.log

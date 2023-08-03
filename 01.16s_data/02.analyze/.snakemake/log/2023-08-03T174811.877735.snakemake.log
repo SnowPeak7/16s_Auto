@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count
+-------------  -------
+all                  1
+make_manifest        1
+total                2
+
+Select jobs to execute...
+
+[Thu Aug  3 17:48:12 2023]
+rule make_manifest:
+    input: 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html
+    output: 02.clean_fastq/filelist.txt
+    jobid: 5
+    reason: Missing output files: 02.clean_fastq/filelist.txt
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 17:48:13 2023]
+Finished job 5.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Thu Aug  3 17:48:13 2023]
+localrule all:
+    input: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/filelist.txt
+    jobid: 0
+    reason: Input files updated by another job: 02.clean_fastq/filelist.txt
+    resources: tmpdir=/tmp
+
+[Thu Aug  3 17:48:13 2023]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2023-08-03T174811.877735.snakemake.log

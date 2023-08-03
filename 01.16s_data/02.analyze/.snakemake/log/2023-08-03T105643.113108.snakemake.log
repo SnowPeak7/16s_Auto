@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in rule all in file /data1/01.16s_data/02.analyze/16s_analyze.smk, line 11:
+Missing input files for rule all:
+    affected files:
+        /data1/01.16s_data/02.analyze/fastp.html

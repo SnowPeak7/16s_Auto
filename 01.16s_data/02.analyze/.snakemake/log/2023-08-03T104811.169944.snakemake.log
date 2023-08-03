@@ -1,0 +1,24 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job      count
+-----  -------
+all          1
+fastp        1
+total        2
+
+Select jobs to execute...
+
+[Thu Aug  3 10:48:11 2023]
+rule fastp:
+    input: raw_fastq/SRR1397196_1.fastq, raw_fastq/SRR1397265_1.fastq, raw_fastq/SRR1397339_1.fastq, raw_fastq/SRR1397407_1.fastq, raw_fastq/SRR1397196_2.fastq, raw_fastq/SRR1397265_2.fastq, raw_fastq/SRR1397339_2.fastq, raw_fastq/SRR1397407_2.fastq
+    output: raw_fastq/SRR1397196_1.clean.fastq, raw_fastq/SRR1397265_1.clean.fastq, raw_fastq/SRR1397339_1.clean.fastq, raw_fastq/SRR1397407_1.clean.fastq, raw_fastq/SRR1397196_2.clean.fastq, raw_fastq/SRR1397265_2.clean.fastq, raw_fastq/SRR1397339_2.clean.fastq, raw_fastq/SRR1397407_2.clean.fastq
+    jobid: 1
+    reason: Missing output files: raw_fastq/SRR1397407_2.clean.fastq, raw_fastq/SRR1397339_1.clean.fastq, raw_fastq/SRR1397265_2.clean.fastq, raw_fastq/SRR1397196_2.clean.fastq, raw_fastq/SRR1397265_1.clean.fastq, raw_fastq/SRR1397339_2.clean.fastq, raw_fastq/SRR1397407_1.clean.fastq, raw_fastq/SRR1397196_1.clean.fastq
+    resources: tmpdir=/tmp
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2023-08-03T104811.169944.snakemake.log
