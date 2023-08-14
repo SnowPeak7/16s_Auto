@@ -1,9 +1,9 @@
 sample-id,absolute-filepath,direction
-SRR1397196,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397196_1.clean.fastq,forward
-SRR1397196,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397196_2.clean.fastq,reverse
-SRR1397265,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397265_1.clean.fastq,forward
-SRR1397265,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397265_2.clean.fastq,reverse
-SRR1397339,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397339_1.clean.fastq,forward
-SRR1397339,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397339_2.clean.fastq,reverse
-SRR1397407,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397407_1.clean.fastq,forward
-SRR1397407,/data1/01.16s_data/02.analyze/02.clean_fastq/SRR1397407_2.clean.fastq,reverse
+SRR1397196,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397196_1.clean.fastq,forward
+SRR1397196,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397196_2.clean.fastq,reverse
+SRR1397265,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397265_1.clean.fastq,forward
+SRR1397265,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397265_2.clean.fastq,reverse
+SRR1397339,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397339_1.clean.fastq,forward
+SRR1397339,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397339_2.clean.fastq,reverse
+SRR1397407,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397407_1.clean.fastq,forward
+SRR1397407,/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/02.clean_fastq/SRR1397407_2.clean.fastq,reverse

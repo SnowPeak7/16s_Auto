@@ -1,0 +1,3 @@
+Median drop positions for each method:
+EMA,233
+Gaussian Smoothing,221

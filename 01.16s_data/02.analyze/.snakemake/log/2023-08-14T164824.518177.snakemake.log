@@ -1,0 +1,392 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 24
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count    min threads    max threads
+----------------------  -------  -------------  -------------
+Alpha_rarefaction_data        1              1              1
+Deblur_denoise_16s            1              1              1
+Rarefaction_plot              1              1              1
+all                           1              1              1
+classify_rep_seqs             1              1              1
+export_r_tree                 1              1              1
+export_ur_tree                1              1              1
+fastp                         4              1              1
+four_alpha_diversity          4              1              1
+get_qual                      1              1              1
+get_trunc_site                1              1              1
+make_manifest                 1              1              1
+phy_analysis                  1             24             24
+q2_diversity                  1              1              1
+qiime_import                  1              1              1
+qiime_join                    1              1              1
+qiime_join_visual             1              1              1
+rep_seqs_visual               1              1              1
+stats_visual                  1              1              1
+table_export                  1              1              1
+table_visual                  1              1              1
+tax_bar_plot                  1              1              1
+total                        28              1             24
+
+Select jobs to execute...
+
+[Mon Aug 14 16:48:25 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397265_1.fastq, 01.raw_fastq/SRR1397265_2.fastq
+    output: 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397265.json
+    jobid: 2
+    reason: Missing output files: 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq
+    wildcards: sample=SRR1397265
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:48:25 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397339_1.fastq, 01.raw_fastq/SRR1397339_2.fastq
+    output: 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397339.json
+    jobid: 3
+    reason: Missing output files: 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq
+    wildcards: sample=SRR1397339
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:48:25 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397196_1.fastq, 01.raw_fastq/SRR1397196_2.fastq
+    output: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397196.json
+    jobid: 1
+    reason: Missing output files: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397196.html
+    wildcards: sample=SRR1397196
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:48:25 2023]
+rule fastp:
+    input: 01.raw_fastq/SRR1397407_1.fastq, 01.raw_fastq/SRR1397407_2.fastq
+    output: 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397407.json
+    jobid: 4
+    reason: Missing output files: 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397407.html
+    wildcards: sample=SRR1397407
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:48:26 2023]
+Finished job 2.
+1 of 28 steps (4%) done
+[Mon Aug 14 16:48:26 2023]
+Finished job 1.
+2 of 28 steps (7%) done
+[Mon Aug 14 16:48:26 2023]
+Finished job 4.
+3 of 28 steps (11%) done
+[Mon Aug 14 16:48:26 2023]
+Finished job 3.
+4 of 28 steps (14%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:48:26 2023]
+rule make_manifest:
+    input: 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html
+    output: 02.clean_fastq/filelist.txt
+    jobid: 5
+    reason: Missing output files: 02.clean_fastq/filelist.txt; Input files updated by another job: 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/SRR1397339.html
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:48:26 2023]
+Finished job 5.
+5 of 28 steps (18%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:48:26 2023]
+rule qiime_import:
+    input: 02.clean_fastq/filelist.txt
+    output: 03.import/reads.qza
+    jobid: 6
+    reason: Missing output files: 03.import/reads.qza; Input files updated by another job: 02.clean_fastq/filelist.txt
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:49:29 2023]
+Finished job 6.
+6 of 28 steps (21%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:49:29 2023]
+rule qiime_join:
+    input: 03.import/reads.qza
+    output: 03.import/joined.qza
+    jobid: 7
+    reason: Missing output files: 03.import/joined.qza; Input files updated by another job: 03.import/reads.qza
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:49:42 2023]
+Finished job 7.
+7 of 28 steps (25%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:49:42 2023]
+rule qiime_join_visual:
+    input: 03.import/joined.qza
+    output: 03.import/joined.qzv
+    jobid: 8
+    reason: Missing output files: 03.import/joined.qzv; Input files updated by another job: 03.import/joined.qza
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:49:51 2023]
+Finished job 8.
+8 of 28 steps (29%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:49:51 2023]
+rule get_qual:
+    input: 03.import/joined.qzv
+    output: 03.import/exported_data, 03.import/exported_data/forward-seven-number-summaries.tsv
+    jobid: 9
+    reason: Missing output files: 03.import/exported_data/forward-seven-number-summaries.tsv; Input files updated by another job: 03.import/joined.qzv
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:49:52 2023]
+Finished job 9.
+9 of 28 steps (32%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:49:52 2023]
+rule get_trunc_site:
+    input: 03.import/exported_data/forward-seven-number-summaries.tsv, get_trunc_length.py
+    output: 03.import/trunc_site.txt
+    jobid: 10
+    reason: Missing output files: 03.import/trunc_site.txt; Input files updated by another job: 03.import/exported_data/forward-seven-number-summaries.tsv
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:49:57 2023]
+Finished job 10.
+10 of 28 steps (36%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:49:57 2023]
+rule Deblur_denoise_16s:
+    input: 03.import/joined.qza, 03.import/trunc_site.txt
+    output: 04.Denoise/representative_sequences.qza, 04.Denoise/table.qza, 04.Denoise/deblur-stats.qza
+    jobid: 11
+    reason: Missing output files: 04.Denoise/table.qza, 04.Denoise/deblur-stats.qza, 04.Denoise/representative_sequences.qza; Input files updated by another job: 03.import/trunc_site.txt, 03.import/joined.qza
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:52:40 2023]
+Finished job 11.
+11 of 28 steps (39%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:52:41 2023]
+rule phy_analysis:
+    input: 04.Denoise/representative_sequences.qza
+    output: 05.Build_phylogenetic_tree/aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 05.Build_phylogenetic_tree/rooted-tree.qza
+    jobid: 16
+    reason: Missing output files: 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 05.Build_phylogenetic_tree/aligned_representative_sequences.qza; Input files updated by another job: 04.Denoise/representative_sequences.qza
+    threads: 24
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:52:50 2023]
+Finished job 16.
+12 of 28 steps (43%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:52:50 2023]
+rule stats_visual:
+    input: 04.Denoise/deblur-stats.qza
+    output: 04.Denoise/deblur-stats.qzv
+    jobid: 14
+    reason: Missing output files: 04.Denoise/deblur-stats.qzv; Input files updated by another job: 04.Denoise/deblur-stats.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule export_r_tree:
+    input: 05.Build_phylogenetic_tree/rooted-tree.qza
+    output: 05.Build_phylogenetic_tree/rooted
+    jobid: 18
+    reason: Missing output files: 05.Build_phylogenetic_tree/rooted; Input files updated by another job: 05.Build_phylogenetic_tree/rooted-tree.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule table_visual:
+    input: 04.Denoise/table.qza
+    output: 04.Denoise/table.qzv
+    jobid: 12
+    reason: Missing output files: 04.Denoise/table.qzv; Input files updated by another job: 04.Denoise/table.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule rep_seqs_visual:
+    input: 04.Denoise/representative_sequences.qza
+    output: 04.Denoise/rep_seqs.qzv
+    jobid: 13
+    reason: Missing output files: 04.Denoise/rep_seqs.qzv; Input files updated by another job: 04.Denoise/representative_sequences.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule Alpha_rarefaction_data:
+    input: 04.Denoise/table.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, /data1/01.16s_data/01.downLoad/PRJNA252404/PRJNA252404_meta.txt
+    output: 10.other/alpha-rarefaction.qzv, 10.other/export_alpha_rarefaction
+    jobid: 22
+    reason: Missing output files: 10.other/alpha-rarefaction.qzv, 10.other/export_alpha_rarefaction; Input files updated by another job: 04.Denoise/table.qza, 05.Build_phylogenetic_tree/rooted-tree.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule export_ur_tree:
+    input: 05.Build_phylogenetic_tree/unrooted-tree.qza
+    output: 05.Build_phylogenetic_tree/unrooted
+    jobid: 17
+    reason: Missing output files: 05.Build_phylogenetic_tree/unrooted; Input files updated by another job: 05.Build_phylogenetic_tree/unrooted-tree.qza
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:52:50 2023]
+rule classify_rep_seqs:
+    input: 04.Denoise/representative_sequences.qza, /data1/raw_data/16S/silva-138-99-nb-classifier.qza
+    output: 06.Taxonomy_Classify/taxonomy.qza, 06.Taxonomy_Classify/taxonomy.qzv
+    jobid: 19
+    reason: Missing output files: 06.Taxonomy_Classify/taxonomy.qza, 06.Taxonomy_Classify/taxonomy.qzv; Input files updated by another job: 04.Denoise/representative_sequences.qza
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:52:57 2023]
+Finished job 18.
+13 of 28 steps (46%) done
+[Mon Aug 14 16:52:57 2023]
+Finished job 14.
+14 of 28 steps (50%) done
+[Mon Aug 14 16:52:57 2023]
+Finished job 13.
+15 of 28 steps (54%) done
+[Mon Aug 14 16:52:58 2023]
+Finished job 12.
+16 of 28 steps (57%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:52:58 2023]
+rule table_export:
+    input: 04.Denoise/table.qzv
+    output: 04.Denoise/table_export, 04.Denoise/table_export/sample-frequency-detail.csv
+    jobid: 15
+    reason: Missing output files: 04.Denoise/table_export, 04.Denoise/table_export/sample-frequency-detail.csv; Input files updated by another job: 04.Denoise/table.qzv
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:52:59 2023]
+Finished job 15.
+17 of 28 steps (61%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:52:59 2023]
+rule q2_diversity:
+    input: 05.Build_phylogenetic_tree/rooted-tree.qza, 04.Denoise/table.qza, 04.Denoise/table_export/sample-frequency-detail.csv, /data1/01.16s_data/01.downLoad/PRJNA252404/PRJNA252404_meta.txt
+    output: 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/jaccard_pcoa_results.qza, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/jaccard_distance_matrix.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 07.Diversity_analysis/jaccard_emperor.qzv, 07.Diversity_analysis/bray_curtis_emperor.qzv, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 07.Diversity_analysis
+    jobid: 21
+    reason: Missing output files: 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 07.Diversity_analysis/jaccard_distance_matrix.qza, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 07.Diversity_analysis/jaccard_emperor.qzv, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 07.Diversity_analysis/bray_curtis_emperor.qzv, 07.Diversity_analysis/jaccard_pcoa_results.qza; Input files updated by another job: 04.Denoise/table.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, 04.Denoise/table_export/sample-frequency-detail.csv
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:52:59 2023]
+Finished job 17.
+18 of 28 steps (64%) done
+[Mon Aug 14 16:53:09 2023]
+Finished job 21.
+19 of 28 steps (68%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:53:09 2023]
+rule four_alpha_diversity:
+    input: 07.Diversity_analysis/faith_pd_vector.qza
+    output: 07.Diversity_analysis/faith_pd_vector.qzv
+    jobid: 25
+    reason: Missing output files: 07.Diversity_analysis/faith_pd_vector.qzv; Input files updated by another job: 07.Diversity_analysis/faith_pd_vector.qza
+    wildcards: AD=07.Diversity_analysis/faith_pd_vector
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:53:09 2023]
+rule four_alpha_diversity:
+    input: 07.Diversity_analysis/shannon_vector.qza
+    output: 07.Diversity_analysis/shannon_vector.qzv
+    jobid: 26
+    reason: Missing output files: 07.Diversity_analysis/shannon_vector.qzv; Input files updated by another job: 07.Diversity_analysis/shannon_vector.qza
+    wildcards: AD=07.Diversity_analysis/shannon_vector
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:53:09 2023]
+rule four_alpha_diversity:
+    input: 07.Diversity_analysis/observed_features_vector.qza
+    output: 07.Diversity_analysis/observed_features_vector.qzv
+    jobid: 27
+    reason: Missing output files: 07.Diversity_analysis/observed_features_vector.qzv; Input files updated by another job: 07.Diversity_analysis/observed_features_vector.qza
+    wildcards: AD=07.Diversity_analysis/observed_features_vector
+    resources: tmpdir=/tmp
+
+
+[Mon Aug 14 16:53:09 2023]
+rule four_alpha_diversity:
+    input: 07.Diversity_analysis/evenness_vector.qza
+    output: 07.Diversity_analysis/evenness_vector.qzv
+    jobid: 24
+    reason: Missing output files: 07.Diversity_analysis/evenness_vector.qzv; Input files updated by another job: 07.Diversity_analysis/evenness_vector.qza
+    wildcards: AD=07.Diversity_analysis/evenness_vector
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:53:17 2023]
+Finished job 25.
+20 of 28 steps (71%) done
+[Mon Aug 14 16:53:17 2023]
+Finished job 26.
+21 of 28 steps (75%) done
+[Mon Aug 14 16:53:17 2023]
+Finished job 24.
+22 of 28 steps (79%) done
+[Mon Aug 14 16:53:17 2023]
+Finished job 27.
+23 of 28 steps (82%) done
+[Mon Aug 14 16:53:31 2023]
+Finished job 22.
+24 of 28 steps (86%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:53:31 2023]
+rule Rarefaction_plot:
+    input: 10.other/export_alpha_rarefaction
+    output: 11.Plots/Alpha_rarefaction_Curve.pdf
+    jobid: 23
+    reason: Missing output files: 11.Plots/Alpha_rarefaction_Curve.pdf; Input files updated by another job: 10.other/export_alpha_rarefaction
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:53:33 2023]
+Finished job 23.
+25 of 28 steps (89%) done
+[Mon Aug 14 16:58:53 2023]
+Finished job 19.
+26 of 28 steps (93%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:58:53 2023]
+rule tax_bar_plot:
+    input: 04.Denoise/table.qza, 06.Taxonomy_Classify/taxonomy.qza, /data1/01.16s_data/01.downLoad/PRJNA252404/PRJNA252404_meta.txt
+    output: 06.Taxonomy_Classify/taxa-bar-plots.qzv, 06.Taxonomy_Classify/tax_bar_export
+    jobid: 20
+    reason: Missing output files: 06.Taxonomy_Classify/tax_bar_export, 06.Taxonomy_Classify/taxa-bar-plots.qzv; Input files updated by another job: 04.Denoise/table.qza, 06.Taxonomy_Classify/taxonomy.qza
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:59:01 2023]
+Finished job 20.
+27 of 28 steps (96%) done
+Select jobs to execute...
+
+[Mon Aug 14 16:59:01 2023]
+localrule all:
+    input: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/filelist.txt, 03.import/reads.qza, 03.import/joined.qza, 03.import/joined.qzv, 03.import/exported_data/forward-seven-number-summaries.tsv, 03.import/trunc_site.txt, 04.Denoise/representative_sequences.qza, 04.Denoise/table.qza, 04.Denoise/deblur-stats.qza, 04.Denoise/table.qzv, 04.Denoise/rep_seqs.qzv, 04.Denoise/deblur-stats.qzv, 04.Denoise/table_export, 04.Denoise/table_export/sample-frequency-detail.csv, 05.Build_phylogenetic_tree/aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, 05.Build_phylogenetic_tree/unrooted, 05.Build_phylogenetic_tree/rooted, 06.Taxonomy_Classify/taxonomy.qza, 06.Taxonomy_Classify/taxonomy.qzv, 06.Taxonomy_Classify/taxa-bar-plots.qzv, 06.Taxonomy_Classify/tax_bar_export, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/jaccard_pcoa_results.qza, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/jaccard_distance_matrix.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 07.Diversity_analysis/jaccard_emperor.qzv, 07.Diversity_analysis/bray_curtis_emperor.qzv, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 10.other/alpha-rarefaction.qzv, 10.other/export_alpha_rarefaction, 11.Plots/Alpha_rarefaction_Curve.pdf, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/evenness_vector.qzv, 07.Diversity_analysis/faith_pd_vector.qzv, 07.Diversity_analysis/shannon_vector.qzv, 07.Diversity_analysis/observed_features_vector.qzv
+    jobid: 0
+    reason: Input files updated by another job: 07.Diversity_analysis/observed_features_vector.qzv, 11.Plots/Alpha_rarefaction_Curve.pdf, 02.clean_fastq/SRR1397339_2.clean.fastq, 05.Build_phylogenetic_tree/aligned_representative_sequences.qza, 02.clean_fastq/SRR1397196_1.clean.fastq, 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 04.Denoise/rep_seqs.qzv, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/jaccard_distance_matrix.qza, 03.import/joined.qzv, 04.Denoise/deblur-stats.qza, 02.clean_fastq/SRR1397265_2.clean.fastq, 06.Taxonomy_Classify/tax_bar_export, 03.import/exported_data/forward-seven-number-summaries.tsv, 03.import/joined.qza, 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 07.Diversity_analysis/faith_pd_vector.qza, 03.import/reads.qza, 04.Denoise/deblur-stats.qzv, 02.clean_fastq/SRR1397339.html, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/evenness_vector.qzv, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 06.Taxonomy_Classify/taxa-bar-plots.qzv, 02.clean_fastq/filelist.txt, 04.Denoise/table.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/jaccard_pcoa_results.qza, 02.clean_fastq/SRR1397407.html, 03.import/trunc_site.txt, 06.Taxonomy_Classify/taxonomy.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/jaccard_emperor.qzv, 10.other/export_alpha_rarefaction, 02.clean_fastq/SRR1397339_1.clean.fastq, 05.Build_phylogenetic_tree/rooted-tree.qza, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 04.Denoise/table_export, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/faith_pd_vector.qzv, 04.Denoise/table_export/sample-frequency-detail.csv, 02.clean_fastq/SRR1397407_1.clean.fastq, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 04.Denoise/table.qzv, 05.Build_phylogenetic_tree/unrooted, 02.clean_fastq/SRR1397407_2.clean.fastq, 07.Diversity_analysis/shannon_vector.qzv, 05.Build_phylogenetic_tree/rooted, 07.Diversity_analysis/bray_curtis_emperor.qzv, 04.Denoise/representative_sequences.qza, 06.Taxonomy_Classify/taxonomy.qzv, 02.clean_fastq/SRR1397265.html, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 10.other/alpha-rarefaction.qzv
+    resources: tmpdir=/tmp
+
+[Mon Aug 14 16:59:01 2023]
+Finished job 0.
+28 of 28 steps (100%) done
+Complete log: .snakemake/log/2023-08-14T164824.518177.snakemake.log

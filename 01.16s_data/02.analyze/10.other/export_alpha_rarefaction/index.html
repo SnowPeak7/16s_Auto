@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>q2_diversity : alpha_rarefaction</title>
+    <link rel="stylesheet" href="./q2templateassets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./q2templateassets/css/normalize.css"/>
+    <link rel="stylesheet" href="./q2templateassets/css/base-template.css"/>
+    <script src="./q2templateassets/js/jquery-3.2.0.min.js" charset="utf-8"></script>
+    <script src="./q2templateassets/js/bootstrap.min.js" charset="utf-8"></script>
+    
+<script src='dist/vendor.bundle.js'></script>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div id="q2templatesheader" class="row">
+        <div class="col-lg-12">
+          <a href="http://qiime2.org/">
+            <img src="./q2templateassets/img/qiime2-rect-200.png"
+            alt="QIIME 2">
+          </a>
+        </div>
+      </div>
+        
+
+<div class='row'>
+  <div class='col-lg-12' id='main'>
+    <h1>Alpha rarefaction</h1>
+
+    
+    <div class="row">
+      <p class="alert alert-warning col-md-12">
+        The following metadata columns have been omitted because they didn't contain categorical data, or the column consisted only of missing values:
+        <strong>AvgSpotLen, Bases, Bytes, version</strong>
+      </p>
+    </div>
+    
+
+    <div class='controls row'>
+      <div class='col-lg-2 form-group downloadCSV'>
+        <label>&nbsp;</label>
+        <a class='btn btn-default form-control'>
+          Download CSV
+        </a>
+      </div>
+      <div class='col-lg-2 form-group metricPicker'>
+        <label>Metric</label>
+        <select class='form-control'></select>
+      </div>
+      <div class='col-lg-3 form-group columnPicker'>
+        <label>Sample Metadata Column</label>
+        <select class='form-control'></select>
+      </div>
+    </div>
+    <div class='viz row'>
+      <div class='col-lg-9' style='width: 1120px;'>
+        <svg class='plotSvg'>
+          <g id='chart'>
+            <g class='x axis'></g>
+            <g class='y axis'></g>
+            <text class='x label'></text>
+            <text class='y label'></text>
+          </g>
+          <g id='subChart'>
+            <g class='x axis'></g>
+            <g class='y axis'></g>
+            <text class='x label'></text>
+            <text class='y label'></text>
+          </g>
+        </svg>
+      </div>
+      <div class='col-lg-2' style='height: 1050px;'>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#helpModal">
+          Help
+        </button>
+        <div class="modal fade" id="helpModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  <span>
+                    &times;
+                  </span>
+                </button>
+                <h4 class="modal-title" id="helpModalLabel">
+                  Alpha Diversity Help
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>
+                  In the legend below, click the box symbols to toggle the
+                  display of the line charts and click the circles to toggle
+                  the display of the box plots and scatter plots. If a color is
+                  visible in the symbol, the corresponding plot elements are
+                  displayed, otherwise they are hidden.
+                </p>
+
+                <p>
+                  The box plots in the upper figure represent the distribution
+                  of the selected alpha diversity metric for each group of
+                  samples at each even sampling depth. The lower and upper
+                  whiskers of the box plot are the 9th and 91st percentiles of
+                  the distribution (respectively), while the lower and upper
+                  extents of the box are the 25th and 75th percentiles of the
+                  distribution (respectively). The horizontal bar through the
+                  middle of the box is the median  of the dstribution
+                  (i.e., the 50th percentile). Outlier points of these
+                  distributions are not shown.
+                </p>
+
+                <p>
+                  The line chart in the upper figure connects the median
+                  values of the alpha diversity metric distribution
+                  across the sampling depths.
+                </p>
+
+                <p>
+                  If a sampling depth is higher than the number of sequences
+                  in a sample, that sample will not be included in the
+                  rarefaction plot at that sampling depth. The line chart in
+                  the lower figure illustrates the number of samples in each
+                  group (i.e., the sample size for each box plot) at each
+                  sampling depth.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style='height: 25px; width: 300px; overflow-x: auto; overflow-y: hidden'>
+          <svg width='200' height='20' class='legendTitleSvg'>
+            <g class='legendTitle'></g>
+          </svg>
+        </div>
+        <div style='height: 900px; width: 300px; overflow-x: auto;' class='legendBoxDiv'>
+          <svg class='legendBoxSvg'>
+            <g></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var d = {};
+  var columns = ['Assay Type', 'BioProject', 'BioSample', 'BioSampleModel', 'Center Name', 'Collection_Date', 'Consent', 'DATASTORE filetype', 'DATASTORE provider', 'DATASTORE region', 'environment_biome', 'Experiment', 'feature', 'Instrument', 'Library Name', 'LibraryLayout', 'LibrarySelection', 'LibrarySource', 'Organism', 'Platform', 'ReleaseDate', 'create_date', 'Sample Name', 'SRA Study'];
+  var metrics = ['observed_features', 'shannon', 'faith_pd'];
+  var steps = 10;
+  function load_data(metric, column, data) {
+    if (column) {
+      if (!d[metric]) {
+        d[metric] = {};
+      }
+      d[metric][column] = data;
+    } else {
+      d[metric] = data;
+    }
+  }
+</script>
+
+<script src='observed_features-Assay%2520Type.jsonp?callback=load_data'></script>
+
+<script src='observed_features-BioProject.jsonp?callback=load_data'></script>
+
+<script src='observed_features-BioSample.jsonp?callback=load_data'></script>
+
+<script src='observed_features-BioSampleModel.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Center%2520Name.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Collection_Date.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Consent.jsonp?callback=load_data'></script>
+
+<script src='observed_features-DATASTORE%2520filetype.jsonp?callback=load_data'></script>
+
+<script src='observed_features-DATASTORE%2520provider.jsonp?callback=load_data'></script>
+
+<script src='observed_features-DATASTORE%2520region.jsonp?callback=load_data'></script>
+
+<script src='observed_features-environment_biome.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Experiment.jsonp?callback=load_data'></script>
+
+<script src='observed_features-feature.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Instrument.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Library%2520Name.jsonp?callback=load_data'></script>
+
+<script src='observed_features-LibraryLayout.jsonp?callback=load_data'></script>
+
+<script src='observed_features-LibrarySelection.jsonp?callback=load_data'></script>
+
+<script src='observed_features-LibrarySource.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Organism.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Platform.jsonp?callback=load_data'></script>
+
+<script src='observed_features-ReleaseDate.jsonp?callback=load_data'></script>
+
+<script src='observed_features-create_date.jsonp?callback=load_data'></script>
+
+<script src='observed_features-Sample%2520Name.jsonp?callback=load_data'></script>
+
+<script src='observed_features-SRA%2520Study.jsonp?callback=load_data'></script>
+
+<script src='shannon-Assay%2520Type.jsonp?callback=load_data'></script>
+
+<script src='shannon-BioProject.jsonp?callback=load_data'></script>
+
+<script src='shannon-BioSample.jsonp?callback=load_data'></script>
+
+<script src='shannon-BioSampleModel.jsonp?callback=load_data'></script>
+
+<script src='shannon-Center%2520Name.jsonp?callback=load_data'></script>
+
+<script src='shannon-Collection_Date.jsonp?callback=load_data'></script>
+
+<script src='shannon-Consent.jsonp?callback=load_data'></script>
+
+<script src='shannon-DATASTORE%2520filetype.jsonp?callback=load_data'></script>
+
+<script src='shannon-DATASTORE%2520provider.jsonp?callback=load_data'></script>
+
+<script src='shannon-DATASTORE%2520region.jsonp?callback=load_data'></script>
+
+<script src='shannon-environment_biome.jsonp?callback=load_data'></script>
+
+<script src='shannon-Experiment.jsonp?callback=load_data'></script>
+
+<script src='shannon-feature.jsonp?callback=load_data'></script>
+
+<script src='shannon-Instrument.jsonp?callback=load_data'></script>
+
+<script src='shannon-Library%2520Name.jsonp?callback=load_data'></script>
+
+<script src='shannon-LibraryLayout.jsonp?callback=load_data'></script>
+
+<script src='shannon-LibrarySelection.jsonp?callback=load_data'></script>
+
+<script src='shannon-LibrarySource.jsonp?callback=load_data'></script>
+
+<script src='shannon-Organism.jsonp?callback=load_data'></script>
+
+<script src='shannon-Platform.jsonp?callback=load_data'></script>
+
+<script src='shannon-ReleaseDate.jsonp?callback=load_data'></script>
+
+<script src='shannon-create_date.jsonp?callback=load_data'></script>
+
+<script src='shannon-Sample%2520Name.jsonp?callback=load_data'></script>
+
+<script src='shannon-SRA%2520Study.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Assay%2520Type.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-BioProject.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-BioSample.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-BioSampleModel.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Center%2520Name.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Collection_Date.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Consent.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-DATASTORE%2520filetype.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-DATASTORE%2520provider.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-DATASTORE%2520region.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-environment_biome.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Experiment.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-feature.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Instrument.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Library%2520Name.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-LibraryLayout.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-LibrarySelection.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-LibrarySource.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Organism.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Platform.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-ReleaseDate.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-create_date.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-Sample%2520Name.jsonp?callback=load_data'></script>
+
+<script src='faith_pd-SRA%2520Study.jsonp?callback=load_data'></script>
+
+<script src='dist/bundle.js'></script>
+
+    </div>
+    <script type="text/javascript">
+      if (window.frameElement) {
+          document.getElementById('q2templatesheader').remove();
+      }
+    </script>
+    
+    
+  </body>
+</html>

@@ -1,1 +1,32 @@
+metadata: "/data1/01.16s_data/01.downLoad/PRJNA252404/PRJNA252404_meta.txt"
+
 sample_srr: ["SRR1397196","SRR1397265","SRR1397339","SRR1397407"]
+
+# Path to the classifier 分类器的绝对路径
+classifier: "/data1/raw_data/16S/silva-138-99-nb-classifier.qza"
+
+# PRJNA num
+PRJNA_NUM: ["PRJNA252404"]
+
+# Core_metrics
+core_metrics: ["faith_pd_vector.qza",
+                          "unweighted_unifrac_distance_matrix.qza",
+                          "bray_curtis_pcoa_results.qza",
+                          "shannon_vector.qza",
+                          "rarefied_table.qza",
+                          "weighted_unifrac_distance_matrix.qza",
+                          "jaccard_pcoa_results.qza",
+                          "weighted_unifrac_pcoa_results.qza",
+                          "observed_features_vector.qza",
+                          "jaccard_distance_matrix.qza",
+                          "evenness_vector.qza",
+                          "bray_curtis_distance_matrix.qza",
+                          "unweighted_unifrac_pcoa_results.qza",
+                          "unweighted_unifrac_emperor.qzv",
+                          "jaccard_emperor.qzv",
+                          "bray_curtis_emperor.qzv",
+                          "weighted_unifrac_emperor.qzv"]
+
+alpha_type: ["faith_pd.csv","shannon.csv","observed_features.csv"]
+
+Alpha_Diversity: ["evenness_vector","faith_pd_vector","shannon_vector","observed_features_vector"]
