@@ -5,14 +5,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 import os
+import time
 
-
-
-def acclist_by_prj(prj, out_dir):
-    driver_path = "/home/ljr/snap/chromedriver"
+def download_metadata(prj, out_dir, chrome_path, driver_path):
     out_path = os.path.join(out_dir, prj)
     service = Service(driver_path)
     options = Options()
+    options.binary_location = chrome_path  # 指定Chrome的路径
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_experimental_option("prefs", {
@@ -24,42 +23,21 @@ def acclist_by_prj(prj, out_dir):
     driver = webdriver.Chrome(service=service, options=options)
     try:
         driver.get(f"https://www.ncbi.nlm.nih.gov/Traces/study/?acc={prj}")
-
-        wait = WebDriverWait(driver, 60)
+        wait = WebDriverWait(driver, 30)
         download_button = wait.until(EC.visibility_of_element_located((By.ID, "t-rit-all")))
         download_button.click()
-
-        download_button = wait.until(EC.visibility_of_element_located((By.ID, "t-acclist-all")))
-        download_button.click()
-
         time.sleep(3)
-
-        file_path = os.path.join(out_path, "SRR_Acc_List.txt")
-        max_retries = 15
-        retry_count = 0
-
-        while retry_count < max_retries:
-            if not os.path.exists(file_path):
-                retry_count += 1
-                time.sleep(2)
-            else:
-                srr_acc_list = get_srr_by_txt(file_path)
-                print(f'任务：{prj} 共 {len(srr_acc_list)} 项待下载')
-                return out_path
-        print(f"查找内容失败")
-        exit()
     except Exception as e:
-        print(f"查找内容失败 : {e}")
+        print(f"下载metadata失败 : {e}")
         exit()
     finally:
         driver.quit()
 
 if __name__ == '__main__':
-
-
-    sras = "PRJNA252404"
-
+    prj = "PRJNA252404"
     out_dir = '.'
+    chrome_path = "/home/ljr/snap/116/chrome-linux64/chrome"
+    driver_path = "/home/ljr/snap/116/chromedriver-linux64/chromedriver"
 
-    acclist_by_prj(sras, out_dir)
-    print('所有任务全部完成')
+    download_metadata(prj, out_dir, chrome_path, driver_path)
+    print('任务完成')
