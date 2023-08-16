@@ -44,9 +44,9 @@ rule all:
         "10.other/export_alpha_rarefaction",
         "11.Plots/Alpha_rarefaction_Curve.pdf",
         expand("07.Diversity_analysis/{AD}.qza",AD=config["Alpha_Diversity"]),
-        expand("07.Diversity_analysis/{AD}.qzv",AD=config["Alpha_Diversity"])
-
-
+        expand("07.Diversity_analysis/{AD}.qzv",AD=config["Alpha_Diversity"]),
+        expand("07.Diversity_analysis/{BD}.qza",BD=config["Beta_Diversity"]),
+        expand(directory({BD}),BD=config["Beta_Diversity"])
 
 
 
@@ -75,7 +75,7 @@ rule make_manifest:
 
 ##TODO：进行单双端判断
 
-# Fornow onliy deal with pair-end squences
+# Fornow only deal with pair-end squences
 rule qiime_import:
     input: 
         "02.clean_fastq/filelist.txt",
@@ -306,6 +306,21 @@ rule four_alpha_diversity:
 # TODO: 多样性绘图暂时不做，因为网络数据的分组信息太不明确，不利于自动判别
 
 
+# Beta diversity 
+# Export four similarity metrics matrix:
+# unweighted_unifrac / weighted_unifrac 
+# jaccard / bray
+rule four_beta_diversity:
+    input: 
+        in_qza="{BD}.qza"
+    output: 
+        expand(directory({BD}),BD=config["Beta_Diversity"])
+    shell: 
+         """
+        qiime tools export \
+        --input-path {input.in_qza} \
+        --output-path {output}
+        """
 
 
 # Classify the representative sequences (OTU to Taxon)
