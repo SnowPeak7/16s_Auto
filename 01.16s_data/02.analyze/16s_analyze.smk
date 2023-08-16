@@ -1,4 +1,4 @@
-configfile: "/data1/01.16s_data/02.analyze/config.yml"
+configfile: "/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/config.yml"
 
 
 srr=config["sample_srr"]
@@ -45,8 +45,8 @@ rule all:
         "11.Plots/Alpha_rarefaction_Curve.pdf",
         expand("07.Diversity_analysis/{AD}.qza",AD=config["Alpha_Diversity"]),
         expand("07.Diversity_analysis/{AD}.qzv",AD=config["Alpha_Diversity"]),
-        expand("07.Diversity_analysis/{BD}.qza",BD=config["Beta_Diversity"]),
-        expand(directory({BD}),BD=config["Beta_Diversity"])
+        expand("07.Diversity_analysis/{BD}_M",BD=config["Beta_Diversity"]),
+        expand("11.Plots/{BD}.pdf",BD=config["Beta_Diversity"])
 
 
 
@@ -312,16 +312,25 @@ rule four_alpha_diversity:
 # jaccard / bray
 rule four_beta_diversity:
     input: 
-        in_qza="{BD}.qza"
+        in_qza="07.Diversity_analysis/{BD}.qza"
     output: 
-        expand(directory({BD}),BD=config["Beta_Diversity"])
+        out_dir=directory("07.Diversity_analysis/{BD}_M")
     shell: 
          """
         qiime tools export \
         --input-path {input.in_qza} \
-        --output-path {output}
+        --output-path {output.out_dir}
         """
 
+
+# Plot Beta diversity in PCoA method
+rule plot_Beta_diversity:
+    input: 
+        beta_dir=rules.four_beta_diversity.output.out_dir
+    output: 
+        out_plot="11.Plots/{BD}.pdf"
+    shell: 
+        "Rscript Beta_plot.R {input.beta_dir}/distance-matrix.tsv {output.out_plot}"
 
 # Classify the representative sequences (OTU to Taxon)
 rule classify_rep_seqs:

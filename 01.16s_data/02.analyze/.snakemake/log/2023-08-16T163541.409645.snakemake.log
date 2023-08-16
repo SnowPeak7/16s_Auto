@@ -1,0 +1,77 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 24
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count    min threads    max threads
+-------------------  -------  -------------  -------------
+all                        1              1              1
+plot_Beta_diversity        4              1              1
+total                      5              1              1
+
+Select jobs to execute...
+
+[Wed Aug 16 16:35:41 2023]
+rule plot_Beta_diversity:
+    input: 07.Diversity_analysis/bray_curtis_distance_matrix_M
+    output: 11.Plots/bray_curtis_distance_matrix.pdf
+    jobid: 32
+    reason: Missing output files: 11.Plots/bray_curtis_distance_matrix.pdf
+    wildcards: BD=bray_curtis_distance_matrix
+    resources: tmpdir=/tmp
+
+
+[Wed Aug 16 16:35:41 2023]
+rule plot_Beta_diversity:
+    input: 07.Diversity_analysis/unweighted_unifrac_distance_matrix_M
+    output: 11.Plots/unweighted_unifrac_distance_matrix.pdf
+    jobid: 33
+    reason: Missing output files: 11.Plots/unweighted_unifrac_distance_matrix.pdf
+    wildcards: BD=unweighted_unifrac_distance_matrix
+    resources: tmpdir=/tmp
+
+
+[Wed Aug 16 16:35:41 2023]
+rule plot_Beta_diversity:
+    input: 07.Diversity_analysis/jaccard_distance_matrix_M
+    output: 11.Plots/jaccard_distance_matrix.pdf
+    jobid: 34
+    reason: Missing output files: 11.Plots/jaccard_distance_matrix.pdf
+    wildcards: BD=jaccard_distance_matrix
+    resources: tmpdir=/tmp
+
+
+[Wed Aug 16 16:35:41 2023]
+rule plot_Beta_diversity:
+    input: 07.Diversity_analysis/weighted_unifrac_distance_matrix_M
+    output: 11.Plots/weighted_unifrac_distance_matrix.pdf
+    jobid: 35
+    reason: Missing output files: 11.Plots/weighted_unifrac_distance_matrix.pdf
+    wildcards: BD=weighted_unifrac_distance_matrix
+    resources: tmpdir=/tmp
+
+[Wed Aug 16 16:35:43 2023]
+Finished job 33.
+1 of 5 steps (20%) done
+[Wed Aug 16 16:35:43 2023]
+Finished job 32.
+2 of 5 steps (40%) done
+[Wed Aug 16 16:35:43 2023]
+Finished job 34.
+3 of 5 steps (60%) done
+[Wed Aug 16 16:35:43 2023]
+Finished job 35.
+4 of 5 steps (80%) done
+Select jobs to execute...
+
+[Wed Aug 16 16:35:43 2023]
+localrule all:
+    input: 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/filelist.txt, 03.import/reads.qza, 03.import/joined.qza, 03.import/joined.qzv, 03.import/exported_data/forward-seven-number-summaries.tsv, 03.import/trunc_site.txt, 04.Denoise/representative_sequences.qza, 04.Denoise/table.qza, 04.Denoise/deblur-stats.qza, 04.Denoise/table.qzv, 04.Denoise/rep_seqs.qzv, 04.Denoise/deblur-stats.qzv, 04.Denoise/table_export, 04.Denoise/table_export/sample-frequency-detail.csv, 05.Build_phylogenetic_tree/aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, 05.Build_phylogenetic_tree/unrooted, 05.Build_phylogenetic_tree/rooted, 06.Taxonomy_Classify/taxonomy.qza, 06.Taxonomy_Classify/taxonomy.qzv, 06.Taxonomy_Classify/taxa-bar-plots.qzv, 06.Taxonomy_Classify/tax_bar_export, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/jaccard_pcoa_results.qza, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/jaccard_distance_matrix.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 07.Diversity_analysis/jaccard_emperor.qzv, 07.Diversity_analysis/bray_curtis_emperor.qzv, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 10.other/alpha-rarefaction.qzv, 10.other/export_alpha_rarefaction, 11.Plots/Alpha_rarefaction_Curve.pdf, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/evenness_vector.qzv, 07.Diversity_analysis/faith_pd_vector.qzv, 07.Diversity_analysis/shannon_vector.qzv, 07.Diversity_analysis/observed_features_vector.qzv, 07.Diversity_analysis/bray_curtis_distance_matrix_M, 07.Diversity_analysis/unweighted_unifrac_distance_matrix_M, 07.Diversity_analysis/jaccard_distance_matrix_M, 07.Diversity_analysis/weighted_unifrac_distance_matrix_M, 11.Plots/bray_curtis_distance_matrix.pdf, 11.Plots/unweighted_unifrac_distance_matrix.pdf, 11.Plots/jaccard_distance_matrix.pdf, 11.Plots/weighted_unifrac_distance_matrix.pdf
+    jobid: 0
+    reason: Input files updated by another job: 11.Plots/jaccard_distance_matrix.pdf, 11.Plots/weighted_unifrac_distance_matrix.pdf, 11.Plots/unweighted_unifrac_distance_matrix.pdf, 11.Plots/bray_curtis_distance_matrix.pdf
+    resources: tmpdir=/tmp
+
+[Wed Aug 16 16:35:43 2023]
+Finished job 0.
+5 of 5 steps (100%) done
+Complete log: .snakemake/log/2023-08-16T163541.409645.snakemake.log
