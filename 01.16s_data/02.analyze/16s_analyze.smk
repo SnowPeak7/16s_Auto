@@ -46,8 +46,11 @@ rule all:
         expand("07.Diversity_analysis/{AD}.qza",AD=config["Alpha_Diversity"]),
         expand("07.Diversity_analysis/{AD}.qzv",AD=config["Alpha_Diversity"]),
         expand("07.Diversity_analysis/{BD}_M",BD=config["Beta_Diversity"]),
-        expand("11.Plots/{BD}.pdf",BD=config["Beta_Diversity"])
-
+        expand("11.Plots/{BD}.pdf",BD=config["Beta_Diversity"]),
+        "04.Denoise/rep_seq/",
+        "04.Denoise/table_qza_export/",
+        "04.Denoise/rep_seq/dna-sequences.fasta",
+        "04.Denoise/table_qza_export/feature-table.biom"
 
 
 #TODO 添加multiqc和fastqc以给出测序质量报告
@@ -71,7 +74,7 @@ rule make_manifest:
     output:
         "02.clean_fastq/filelist.txt"
     script:
-        "manifest.sh"
+        "bash manifest.sh"
 
 ##TODO：进行单双端判断
 
@@ -157,6 +160,8 @@ rule Deblur_denoise_16s:
               --o-stats {output.stats}
         """
 
+# TODO 添加过滤功能？
+
 # Table visualization
 rule table_visual:
     input: 
@@ -220,7 +225,7 @@ rule phy_analysis:
     shell:
         """
         qiime phylogeny align-to-tree-mafft-fasttree \
-           --i-sequences {input} \
+           --i-sequences {input.rep_seqs} \
            --o-alignment {output.alignment} \
            --o-masked-alignment {output.masked_alignment} \
            --o-tree {output.unrooted_tree} \
@@ -332,6 +337,7 @@ rule plot_Beta_diversity:
     shell: 
         "Rscript Beta_plot.R {input.beta_dir}/distance-matrix.tsv {output.out_plot}"
 
+
 # Classify the representative sequences (OTU to Taxon)
 rule classify_rep_seqs:
     input: 
@@ -420,3 +426,39 @@ rule Rarefaction_plot:
         python Rarefaction_plot.py -i $csv_input -o {output.Plot_name} 
         """
 
+
+# Picrust2 input file prepare
+rule pre_export_picrust2:
+    input: 
+        rep_seqs_qza=rules.Deblur_denoise_16s.output.rep_seqs,
+        table_qza=rules.Deblur_denoise_16s.output.table
+    output: 
+        rep_seqs_dir=directory("04.Denoise/rep_seq/"),
+        table_dir=directory("04.Denoise/table_qza_export/"),
+        rep_seq_fa="04.Denoise/rep_seq/dna-sequences.fasta",
+        table_biom="04.Denoise/table_qza_export/feature-table.biom"
+    shell:
+        """
+        qiime tools export \
+            --input-path {input.rep_seqs_qza} \
+            --output-path {output.rep_seqs_dir}
+         
+        qiime tools export \
+            --input-path {input.table_qza} \
+            --output-path {output.table_dir}
+         
+         """
+ 
+# Run Picrust2 core step
+rule run_core_picrust2:
+    input: 
+
+    output: 
+
+    shell: 
+        """
+        picrust2_pipeline.py \
+            -s rep_seq/dna-sequences.fasta \
+            -i table_export/feature-table.biom \
+            -o pi2 -p 48
+        """

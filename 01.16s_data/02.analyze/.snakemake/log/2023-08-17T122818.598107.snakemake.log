@@ -1,0 +1,12 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules pre_export_picrust2 and table_export are ambiguous for the file 04.Denoise/table_export.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	pre_export_picrust2: 
+	table_export: 
+Expected input files:
+	pre_export_picrust2: 04.Denoise/representative_sequences.qza 04.Denoise/table.qza
+	table_export: 04.Denoise/table.qzvExpected output files:
+	pre_export_picrust2: 04.Denoise/rep_seq 04.Denoise/table_export
+	table_export: 04.Denoise/table_export 04.Denoise/table_export/sample-frequency-detail.csv
