@@ -50,7 +50,9 @@ rule all:
         "04.Denoise/rep_seq/",
         "04.Denoise/table_qza_export/",
         "04.Denoise/rep_seq/dna-sequences.fasta",
-        "04.Denoise/table_qza_export/feature-table.biom"
+        "04.Denoise/table_qza_export/feature-table.biom",
+        "08.Fuction_pridict/picrust2/",
+        "08.Fuction_pridict/KEGG.KO.txt"
 
 
 #TODO 添加multiqc和fastqc以给出测序质量报告
@@ -452,13 +454,37 @@ rule pre_export_picrust2:
 # Run Picrust2 core step
 rule run_core_picrust2:
     input: 
-
+        fasta=rules.pre_export_picrust2.output.rep_seq_fa,
+        biom=rules.pre_export_picrust2.output.table_biom
     output: 
-
+        directory("08.Fuction_pridict/picrust2/")
     shell: 
         """
         picrust2_pipeline.py \
-            -s rep_seq/dna-sequences.fasta \
-            -i table_export/feature-table.biom \
-            -o pi2 -p 48
+            -s {input.fasta} \
+            -i {input.biom} \
+            -o {output} \
+            -p 24
         """
+
+# Format to KEGG likes
+rule format_KEGG:
+    input: 
+        table_KO="08.Fuction_pridict/picrust2/KO_metagenome_out/pred_metagenome_unstrat.tsv.gz",
+        level_KO="KO1-4.txt"
+    output: 
+        table_KO_unzip="08.Fuction_pridict/KEGG.KO.txt"
+    shell:
+        """
+        zcat {input.table_KO} > {output.table_KO_unzip}
+
+        python summarizeAbundance.py \
+            -i {output.table_KO_unzip} \
+            -m {input.level_KO} \
+            -c 2,3,4 \
+            -s ',+,+,' \
+            -n raw \
+            -o format_KEGG
+
+        mv format_KEGG.* 08.Fuction_pridict/
+        """ 

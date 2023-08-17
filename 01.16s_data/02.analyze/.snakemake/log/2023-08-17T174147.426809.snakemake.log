@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 13 of /home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/16s_analyze.smk:
+Missing input files for rule all:
+08.Fuction_pridict/picrust2/KO_metagenome_out/KEGG.KO.txt
