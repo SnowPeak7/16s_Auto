@@ -1,0 +1,3 @@
+KeyError in line 3 of /home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/16s_analyze.smk:
+'PRJN'
+  File "/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/16s_analyze.smk", line 3, in <module>

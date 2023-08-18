@@ -1,9 +1,16 @@
 configfile: "/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/config.yml"
 
+PRJNA=config["PRJNA"]
 
-srr=config["sample_srr"]
+def aggregate_downloads():
+    with open(f"{PRJNA}_srr.txt", "r") as f:
+        srr_ids = [line.strip() for line in f]
+    return srr_ids
+
+srr=aggregate_downloads()
 core_metric_conf=config["core_metrics"]
 # alpha_type=config['alpha_type']
+
 
 onsuccess:
     print("Nice bro")

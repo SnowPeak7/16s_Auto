@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in line 2 of /home/ljr/01.bio_project/16s_Auto/01.16s_data/01.downLoad/16s_download_v2.smk:
+Wildcards in input files cannot be determined from output files:
+'PRJNA'

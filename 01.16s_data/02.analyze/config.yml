@@ -6,7 +6,7 @@ sample_srr: ["SRR1397196","SRR1397265","SRR1397339","SRR1397407"]
 classifier: "/data1/raw_data/16S/silva-138-99-nb-classifier.qza"
 
 # PRJNA num
-PRJNA_NUM: ["PRJNA252404"]
+PRJNA_NUM: "PRJNA252404"
 
 # Core_metrics
 core_metrics: ["faith_pd_vector.qza",
