@@ -32,3 +32,5 @@ alpha_type: ["faith_pd.csv","shannon.csv","observed_features.csv"]
 Alpha_Diversity: ["evenness_vector","faith_pd_vector","shannon_vector","observed_features_vector"]
 
 Beta_Diversity: ["bray_curtis_distance_matrix","unweighted_unifrac_distance_matrix","jaccard_distance_matrix","weighted_unifrac_distance_matrix"]
+
+KEGG_L1L2: "L1L2.tsv"

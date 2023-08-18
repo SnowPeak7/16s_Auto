@@ -59,7 +59,8 @@ rule all:
         "04.Denoise/rep_seq/dna-sequences.fasta",
         "04.Denoise/table_qza_export/feature-table.biom",
         "08.Fuction_pridict/picrust2/",
-        "08.Fuction_pridict/KEGG.KO.txt"
+        "08.Fuction_pridict/KEGG.KO.txt",
+        "11.Plots/KEGG_L1L2.pdf"
 
 
 #TODO 添加multiqc和fastqc以给出测序质量报告
@@ -495,3 +496,13 @@ rule format_KEGG:
 
         mv format_KEGG.* 08.Fuction_pridict/
         """ 
+
+# Plot KEGG @yuanyue
+rule plot_KEGG:
+    input: 
+        L1L2=config["KEGG_L1L2"],
+        KEGG_L2="08.Fuction_pridict/format_KEGG.PathwayL2.raw.txt"
+    output: 
+        KEGG_plot="11.Plots/KEGG_L1L2.pdf"
+    shell: 
+        "Rscript KEGG_L1L2.R {input.L1L2} {input.KEGG_L2} {output.KEGG_plot}"

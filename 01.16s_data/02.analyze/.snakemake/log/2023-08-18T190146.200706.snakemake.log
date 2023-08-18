@@ -1,0 +1,31 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 24
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	plot_KEGG
+	2
+Select jobs to execute...
+
+[Fri Aug 18 19:01:46 2023]
+rule plot_KEGG:
+    input: L1L2.tsv, /data1/raw_data/SRR24001348/Qiime_deblur_output/picrust2_output/KEGG.PathwayL2.raw.txt
+    output: 11.Plots/KEGG_L1L2.pdf
+    jobid: 39
+
+[Fri Aug 18 19:01:48 2023]
+Finished job 39.
+1 of 2 steps (50%) done
+Select jobs to execute...
+
+[Fri Aug 18 19:01:48 2023]
+localrule all:
+    input: 02.clean_fastq/SRR1397339_1.clean.fastq, 02.clean_fastq/SRR1397265_1.clean.fastq, 02.clean_fastq/SRR1397196_1.clean.fastq, 02.clean_fastq/SRR1397407_1.clean.fastq, 02.clean_fastq/SRR1397339_2.clean.fastq, 02.clean_fastq/SRR1397265_2.clean.fastq, 02.clean_fastq/SRR1397196_2.clean.fastq, 02.clean_fastq/SRR1397407_2.clean.fastq, 02.clean_fastq/SRR1397339.html, 02.clean_fastq/SRR1397265.html, 02.clean_fastq/SRR1397196.html, 02.clean_fastq/SRR1397407.html, 02.clean_fastq/filelist.txt, 03.import/reads.qza, 03.import/joined.qza, 03.import/joined.qzv, 03.import/exported_data/forward-seven-number-summaries.tsv, 03.import/trunc_site.txt, 04.Denoise/representative_sequences.qza, 04.Denoise/table.qza, 04.Denoise/deblur-stats.qza, 04.Denoise/table.qzv, 04.Denoise/rep_seqs.qzv, 04.Denoise/deblur-stats.qzv, 04.Denoise/table_export, 04.Denoise/table_export/sample-frequency-detail.csv, 05.Build_phylogenetic_tree/aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/masked_aligned_representative_sequences.qza, 05.Build_phylogenetic_tree/unrooted-tree.qza, 05.Build_phylogenetic_tree/rooted-tree.qza, 05.Build_phylogenetic_tree/unrooted, 05.Build_phylogenetic_tree/rooted, 06.Taxonomy_Classify/taxonomy.qza, 06.Taxonomy_Classify/taxonomy.qzv, 06.Taxonomy_Classify/taxa-bar-plots.qzv, 06.Taxonomy_Classify/tax_bar_export, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/unweighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/bray_curtis_pcoa_results.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/rarefied_table.qza, 07.Diversity_analysis/weighted_unifrac_distance_matrix.qza, 07.Diversity_analysis/jaccard_pcoa_results.qza, 07.Diversity_analysis/weighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/jaccard_distance_matrix.qza, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/bray_curtis_distance_matrix.qza, 07.Diversity_analysis/unweighted_unifrac_pcoa_results.qza, 07.Diversity_analysis/unweighted_unifrac_emperor.qzv, 07.Diversity_analysis/jaccard_emperor.qzv, 07.Diversity_analysis/bray_curtis_emperor.qzv, 07.Diversity_analysis/weighted_unifrac_emperor.qzv, 10.other/alpha-rarefaction.qzv, 10.other/export_alpha_rarefaction, 11.Plots/Alpha_rarefaction_Curve.pdf, 07.Diversity_analysis/evenness_vector.qza, 07.Diversity_analysis/faith_pd_vector.qza, 07.Diversity_analysis/shannon_vector.qza, 07.Diversity_analysis/observed_features_vector.qza, 07.Diversity_analysis/evenness_vector.qzv, 07.Diversity_analysis/faith_pd_vector.qzv, 07.Diversity_analysis/shannon_vector.qzv, 07.Diversity_analysis/observed_features_vector.qzv, 07.Diversity_analysis/bray_curtis_distance_matrix_M, 07.Diversity_analysis/unweighted_unifrac_distance_matrix_M, 07.Diversity_analysis/jaccard_distance_matrix_M, 07.Diversity_analysis/weighted_unifrac_distance_matrix_M, 11.Plots/bray_curtis_distance_matrix.pdf, 11.Plots/unweighted_unifrac_distance_matrix.pdf, 11.Plots/jaccard_distance_matrix.pdf, 11.Plots/weighted_unifrac_distance_matrix.pdf, 04.Denoise/rep_seq, 04.Denoise/table_qza_export, 04.Denoise/rep_seq/dna-sequences.fasta, 04.Denoise/table_qza_export/feature-table.biom, 08.Fuction_pridict/picrust2, 08.Fuction_pridict/KEGG.KO.txt, 11.Plots/KEGG_L1L2.pdf
+    jobid: 0
+
+[Fri Aug 18 19:01:48 2023]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: /home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/.snakemake/log/2023-08-18T190146.200706.snakemake.log
