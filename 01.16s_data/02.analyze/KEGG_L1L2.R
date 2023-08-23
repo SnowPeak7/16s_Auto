@@ -15,6 +15,7 @@ merged_df <- merged_df[complete.cases(merged_df), ]
 merged_df_summary <- merged_df %>%
   group_by(PathwayL2, PathwayL1) %>%
   summarize(Average = mean(Average, na.rm = TRUE))
+# Remove human diseases
 merged_df_summary = subset(merged_df_summary,merged_df_summary$PathwayL1!="Human Diseases")
 
 p <- ggplot(merged_df_summary, aes(Average, PathwayL2)) +

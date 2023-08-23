@@ -43,73 +43,103 @@ def exponential_moving_average(values, alpha):
         ema_values.append(alpha * value + (1 - alpha) * ema_values[-1])
     return ema_values
 
-# 使用α=0.1的指数移动平均处理数据
+# 使用α=0.15的指数移动平均处理数据
 ema_values = exponential_moving_average(median_quality_scores, alpha=0.15)
 
 # 使用σ=3的高斯平滑处理数据
 gaussian_smoothed_values = gaussian_smoothing(median_quality_scores, sigma=3)
 
-# 滑动窗口大小
-window_size = 5
-# 连续下降的窗口数量
-consecutive_decreasing_windows = 10
+# # 滑动窗口大小
+# window_size = 5
+# # 连续下降的窗口数量
+# consecutive_decreasing_windows = 10
 
 # 从第75个碱基开始
 start_position = 75
 
-# 定义评估函数
-def evaluate_methods(values, start_position, window_size, consecutive_decreasing_windows):
-    # 寻找连续下降的窗口
-    decreasing_count = 0
-    drop_position = None
-    for i in range(start_position - 1, len(values) - window_size + 1):
-        window_data = values[i: i + window_size]
-        result = mk.original_test(window_data)
-        if result.trend == "decreasing":
-            decreasing_count += 1
-            if decreasing_count >= consecutive_decreasing_windows:
-                drop_position = base_positions[i]
-                break
-        else:
-            decreasing_count = 0
-    return drop_position
+filtered_results_length = 0
 
-# 结果存储，将两种方法的结果存储在同一个列表中
-results = []
+while filtered_results_length == 0:
 
-# 遍历参数组合
-for window_size in range(5, 10):
-    for consecutive_decreasing_windows in range(5, 10):
-        drop_position_ema = evaluate_methods(ema_values, start_position, window_size, consecutive_decreasing_windows)
-        drop_position_gaussian = evaluate_methods(gaussian_smoothed_values, start_position, window_size, consecutive_decreasing_windows)
-        results.append({
-            "window_size": window_size,
-            "consecutive_decreasing_windows": consecutive_decreasing_windows,
-            "drop_position": drop_position_ema,
-            "method": "EMA"
-        })
-        results.append({
-            "window_size": window_size,
-            "consecutive_decreasing_windows": consecutive_decreasing_windows,
-            "drop_position": drop_position_gaussian,
-            "method": "Gaussian Smoothing"
-        })
+    # 定义评估函数
+    def evaluate_methods(values, start_position, window_size, consecutive_decreasing_windows):
+        # 寻找连续下降的窗口
+        decreasing_count = 0
+        drop_position = None
+        for i in range(start_position - 1, len(values) - window_size + 1):
+            window_data = values[i: i + window_size]
+            result = mk.original_test(window_data)
+            if result.trend == "decreasing":
+                decreasing_count += 1
+                if decreasing_count >= consecutive_decreasing_windows:
+                    drop_position = base_positions[i]
+                    break
+            else:
+                decreasing_count = 0
+        return drop_position
+
+    # 结果存储，将两种方法的结果存储在同一个列表中
+    results = []
+
+    # 遍历参数组合
+    for window_size in range(7, 10):
+        for consecutive_decreasing_windows in range(7, 10):
+            drop_position_ema = evaluate_methods(ema_values, start_position, window_size, consecutive_decreasing_windows)
+            if drop_position_ema != None:
+                results.append({
+                    "window_size": window_size,
+                    "consecutive_decreasing_windows": consecutive_decreasing_windows,
+                    "drop_position": drop_position_ema,
+                    "method": "EMA"
+                })
+            drop_position_gaussian = evaluate_methods(gaussian_smoothed_values, start_position, window_size, consecutive_decreasing_windows)
+            if drop_position_gaussian != None:
+                results.append({
+                    "window_size": window_size,
+                    "consecutive_decreasing_windows": consecutive_decreasing_windows,
+                    "drop_position": drop_position_gaussian,
+                    "method": "Gaussian Smoothing"
+                })
+
+    # 定义函数以检测给定位置前后10bp的最大质量差异
+    def max_quality_difference(values, position, window=10):
+        start = max(0, position - window)
+        end = min(len(values), position + window)
+        return max(values[start:end]) - min(values[start:end])
+
+    # 过滤结果，只保留最大差值大于或等于3的位点
+    filtered_results = []
+    for result in results:
+        position = result['drop_position']
+        quality_diff = max_quality_difference(gaussian_smoothed_values, position)
+        if quality_diff >= 3:
+            filtered_results.append(result)
+    
+    # print(filtered_results_df.head())
+    filtered_results_length = len(filtered_results)
+
+    # 如果找不到满足条件的位点，则增加start_position并重新运行
+    if filtered_results_length == 0:
+        start_position += 25
 
 # 转换为DataFrame
 results_df = pd.DataFrame(results)
-
 # 计算每种方法的中位数
-median_values = results_df.groupby('method')['drop_position'].median()
+median_values = results_df.groupby('method')['drop_position'].median().round().astype(int)
+
+filtered_results_df = pd.DataFrame(filtered_results)
+filter_median_values = filtered_results_df.groupby('method')['drop_position'].median().round().astype(int)
+
 
 # 输出中位数
 print("Median drop positions for each method:")
 for method, median in median_values.items():
-    median_int = int(median)
-    print(f"{method},{median_int}")
+    print(f"{method}: {median}")
+
+# #输出过滤后的中位数
+# print("Median drop positions for each method after filtering:")
+# for method, median in filter_median_values.items():
+#     print(f"{method}: {median}")
 
 # 记录结束时间
 end_time = time.time()
-
-# 计算并打印所用时间
-#elapsed_time = end_time - start_time
-# print(f"The code took {elapsed_time:.1f} seconds to run.")

@@ -1,12 +1,17 @@
 configfile: "/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/config.yml"
-
 PRJNA=config["PRJNA"]
+import pandas as pd
 
 def aggregate_downloads():
     with open(f"{PRJNA}_srr.txt", "r") as f:
         srr_ids = [line.strip() for line in f]
     return srr_ids
 
+# def get_sequence_type()
+#     raw_metadata=pd.read_table(f"{PRJNA}/{PRJNA}_meta.txt")
+
+
+# SEQ_TYPE=
 srr=aggregate_downloads()
 core_metric_conf=config["core_metrics"]
 # alpha_type=config['alpha_type']
@@ -506,3 +511,5 @@ rule plot_KEGG:
         KEGG_plot="11.Plots/KEGG_L1L2.pdf"
     shell: 
         "Rscript KEGG_L1L2.R {input.L1L2} {input.KEGG_L2} {output.KEGG_plot}"
+
+
