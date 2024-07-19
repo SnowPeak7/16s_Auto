@@ -1,4 +1,4 @@
-configfile: "/home/ljr/01.bio_project/16s_Auto/01.16s_data/02.analyze/config.yml"
+configfile: "/home/*****/01.bio_project/16s_Auto/01.16s_data/02.analyze/config.yml"
 PRJNA=config["PRJNA"]
 import pandas as pd
 
